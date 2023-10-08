@@ -105,4 +105,4 @@ Hypernets
 - Kyle Hill
 - Stable Diffusion repo
 - Hugging face latent text to image diffusion
-- 
+
