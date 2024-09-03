@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Introduction to NumPy and Pandas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>Introduction to NumPy and Pandas</h2>
+        <p>Presented by: Dr. G. Saravanan</p>
+      </section>
+      <section>
+        <section>
+          <h2>History of NumPy</h2>
+        </section>
+
+        <section>
+          <h3>Origins of NumPy</h3>
+          <ul>
+            <li>NumPy is the successor of Numeric, an earlier numerical library for Python.</li>
+            <li>It was developed by Travis Oliphant in 2005 to unify the features of Numeric and another library called
+              Numarray.</li>
+          </ul>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/NumPy_logo_2020.svg/1200px-NumPy_logo_2020.svg.png"
+            alt="NumPy Logo" style="width: 50%; margin-top: 20px;">
+        </section>
+
+        <section>
+          <h3>Development and Adoption</h3>
+          <ul>
+            <li>NumPy quickly became the foundation for scientific computing in Python.</li>
+            <li>Its efficient handling of arrays and matrices made it popular in data analysis, machine learning, and
+              scientific research.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>History of Pandas</h2>
+        </section>
+
+        <section>
+          <h3>Origins of Pandas</h3>
+          <ul>
+            <li>Pandas was developed by Wes McKinney in 2008.</li>
+            <li>It was created to address the need for a powerful and flexible tool for data analysis in Python.</li>
+          </ul>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Pandas_mark.svg/1200px-Pandas_mark.svg.png" alt="Pandas Logo" style="width: 30%; margin-top: 20px;">
+
+        </section>
+
+        <section>
+          <h3>Development and Adoption</h3>
+          <ul>
+            <li>Pandas became the go-to library for data manipulation and analysis, particularly in finance and data
+              science.</li>
+            <li>Its DataFrame structure and intuitive API have made it indispensable for data professionals.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>NumPy</h2>
+        </section>
+
+        <section>
+          <h3>What is NumPy?</h3>
+          <ul>
+            <li><strong>Definition:</strong></li>
+            <ul>
+              <li>NumPy stands for Numerical Python.</li>
+              <li>It is a fundamental package for scientific computing with Python.</li>
+            </ul>
+            <li><strong>Core Features:</strong></li>
+            <ul>
+              <li>Provides support for arrays and matrices, along with a collection of mathematical functions to operate
+                on these data structures.</li>
+              <li>Efficient operations on large datasets.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Why Use NumPy?</h3>
+          <ul>
+            <li><strong>Performance:</strong></li>
+            <ul>
+              <li>NumPy is implemented in C, allowing for fast and efficient computations.</li>
+            </ul>
+            <li><strong>Convenience:</strong></li>
+            <ul>
+              <li>Easy-to-use syntax and powerful features like broadcasting, which simplifies many operations.</li>
+            </ul>
+            <li><strong>Integration:</strong></li>
+            <ul>
+              <li>Works well with other libraries like SciPy, Pandas, and Matplotlib.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Basic Concepts</h3>
+          <ul>
+            <li><strong>Arrays:</strong> Central data structure in NumPy. Can be 1D, 2D, or N-Dimensional.</li>
+            <li><strong>Data Types:</strong> NumPy arrays have a specific data type, like <code>int</code>,
+              <code>float</code>, or <code>complex</code>.
+            </li>
+            <li><strong>Operations:</strong> Element-wise operations, matrix operations, etc.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Creating NumPy Arrays</h3>
+          <ul>
+            <li><strong>From Lists:</strong></li>
+            <pre><code>import numpy as np
+array1 = np.array([1, 2, 3])</code></pre>
+            <li><strong>Using Functions:</strong></li>
+            <ul>
+              <li><code>np.zeros((3,3))</code> - Creates an array of zeros.</li>
+              <li><code>np.ones((2,2))</code> - Creates an array of ones.</li>
+              <li><code>np.arange(0, 10, 2)</code> - Creates an array with a range of values.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Array Indexing and Slicing</h3>
+          <ul>
+            <li><strong>Indexing:</strong> Access elements using square brackets: <code>array1[0]</code> returns the
+              first element.</li>
+            <li><strong>Slicing:</strong> Extract a subset of an array: <code>array1[0:2]</code> returns the first two
+              elements.</li>
+            <li><strong>Advanced Indexing:</strong> Boolean indexing, integer array indexing for more complex
+              operations.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Broadcasting</h3>
+          <ul>
+            <li><strong>Definition:</strong> A method that NumPy uses to allow arithmetic operations on arrays of
+              different shapes.</li>
+            <li><strong>Example:</strong></li>
+            <pre><code>a = np.array([1, 2, 3])
+b = np.array([4])
+result = a + b  # [5, 6, 7]</code></pre>
+          </ul>
+        </section>
+
+        <section>
+          <small>
+            <h3>Applications of NumPy</h3>
+            <ul>
+              <li><strong>Data Analysis:</strong> Used in libraries like Pandas for handling large datasets.</li>
+              <li><strong>Machine Learning:</strong> Foundation for machine learning libraries like TensorFlow and
+                PyTorch.</li>
+              <li><strong>Scientific Computing:</strong> Numerical simulations, statistical calculations, etc.</li>
+              <li><strong>Image Processing:</strong> Efficient manipulation of image data as arrays.</li>
+            </ul>
+          </small>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Pandas</h2>
+        </section>
+
+        <section>
+          <h3>What is Pandas?</h3>
+          <ul>
+            <li><strong>Definition:</strong> Pandas is an open-source Python library for data manipulation and analysis.
+            </li>
+            <li><strong>Core Features:</strong> Provides data structures like Series and DataFrame for handling and
+              analyzing structured data.</li>
+            <li><strong>Integration:</strong> Works seamlessly with other libraries like NumPy, Matplotlib, and SciPy.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Why Use Pandas?</h3>
+          <ul>
+            <li><strong>Efficiency:</strong> Optimized for fast data manipulation with large datasets.</li>
+            <li><strong>Ease of Use:</strong> Intuitive syntax for data filtering, grouping, and aggregation.</li>
+            <li><strong>Powerful Functionality:</strong> Handles missing data, merges/joining of datasets, and
+              time-series functionality.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Core Data Structures</h3>
+          <ul>
+            <li><strong>Series:</strong> A one-dimensional labeled array capable of holding any data type. Similar to a
+              column in a spreadsheet or a SQL table.</li>
+            <li><strong>DataFrame:</strong> A two-dimensional labeled data structure with columns of potentially
+              different types. Can be thought of as a collection of Series objects.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Creating a Pandas Series</h3>
+          <ul>
+            <li><strong>From a List:</strong></li>
+            <pre><code>import pandas as pd
+s = pd.Series([1, 3, 5, 7])</code></pre>
+            <li><strong>From a Dictionary:</strong></li>
+            <pre><code>data = {'a': 1, 'b': 2, 'c': 3}
+s = pd.Series(data)</code></pre>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Creating a Pandas DataFrame</h3>
+          <ul>
+            <li><strong>From a Dictionary:</strong></li>
+            <pre><code>data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}
+df = pd.DataFrame(data)</code></pre>
+            <li><strong>From a CSV File:</strong></li>
+            <pre><code>df = pd.read_csv('file.csv')</code></pre>
+          </ul>
+        </section>
+
+        <section>
+          <h3>DataFrame Operations</h3>
+          <ul>
+            <li><strong>Basic Operations:</strong></li>
+            <ul>
+              <li><code>df.head()</code>: View the first few rows of the DataFrame.</li>
+              <li><code>df.describe()</code>: Generate descriptive statistics.</li>
+            </ul>
+            <li><strong>Indexing and Selecting Data:</strong></li>
+            <ul>
+              <li><code>df['column_name']</code>: Select a single column.</li>
+              <li><code>df.iloc[0]</code>: Select the first row.</li>
+              <li><code>df.loc[0, 'column_name']</code>: Select a specific element.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Handling Missing Data</h3>
+          <ul>
+            <li><strong>Checking for Missing Data:</strong></li>
+            <ul>
+              <li><code>df.isnull()</code>: Detect missing values.</li>
+              <li><code>df.dropna()</code>: Remove rows with missing values.</li>
+            </ul>
+            <li><strong>Filling Missing Data:</strong></li>
+            <ul>
+              <li><code>df.fillna(value)</code>: Replace missing values with a specified value.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Merging and Joining Data</h3>
+          <ul>
+            <li><strong>Concatenation:</strong> Use <code>pd.concat()</code> to concatenate DataFrames along rows or
+              columns.</li>
+            <li><strong>Merging:</strong> Use <code>pd.merge()</code> to perform database-style joins between
+              DataFrames.</li>
+            <li><strong>Joining:</strong> Similar to merging, but uses the index to join DataFrames.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Group By Operations</h3>
+          <ul>
+            <li><strong>Definition:</strong> Splitting the data into groups based on some criteria, applying a function
+              to each group, and then combining the results.</li>
+            <li><strong>Example:</strong></li>
+            <pre><code>df.groupby('column_name').sum()</code></pre>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Applications of Pandas</h3>
+          <ul>
+            <li><strong>Data Wrangling:</strong> Cleaning, transforming, and organizing data.</li>
+            <li><strong>Exploratory Data Analysis:</strong> Analyzing data to uncover patterns and insights.</li>
+            <li><strong>Time Series Analysis:</strong> Handling and analyzing time-indexed data.</li>
+            <li><strong>Data Visualization:</strong> Plotting and visualizing data using integrated plotting methods or
+              libraries like Matplotlib and Seaborn.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Installation</h2>
+        </section>
+        <section>
+          <h3>Prerequisites</h3>
+          <small>
+            <ul>
+              <li><strong>Python Installation:</strong>
+                <ul>
+                  <li>Ensure that Python is installed on your system.</li>
+                  <li>Verify installation by running:
+                    <pre><code>python --version</code></pre>
+                  </li>
+                  <li>If not installed, download from <a href="https://www.python.org/downloads/">python.org</a> and
+                    follow the installation instructions.</li>
+                </ul>
+              </li>
+              <li><strong>Package Manager:</strong>
+                <ul>
+                  <li>Make sure you have <code>pip</code>, the Python package manager, installed.</li>
+                  <li>Check with:
+                    <pre><code>pip --version</code></pre>
+                  </li>
+                  <li>If not installed, follow <a href="https://pip.pypa.io/en/stable/installation/">pip installation
+                      guide</a>.</li>
+                </ul>
+              </li>
+            </ul>
+          </small>
+        </section>
+
+        <section>
+          <h3>Installing NumPy via pip</h3>
+          <ul>
+            <li><strong>Command Line Installation:</strong>
+              <pre><code>pip install numpy</code></pre>
+            </li>
+            <li><strong>Verification:</strong>
+              <ul>
+                <li>After installation, verify by importing NumPy in a Python shell:
+                  <pre><code>import numpy as np
+  print(np.__version__)</code></pre>
+                </li>
+                <li>This should output the installed version of NumPy.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Installing Pandas via pip</h3>
+          <ul>
+            <li><strong>Command Line Installation:</strong>
+              <pre><code>pip install pandas</code></pre>
+            </li>
+            <li><strong>Verification:</strong>
+              <ul>
+                <li>Verify by importing Pandas in a Python shell:
+                  <pre><code>import pandas as pd
+  print(pd.__version__)</code></pre>
+                </li>
+                <li>This should output the installed version of Pandas.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Installing via Anaconda (Alternative)</h3>
+          <small>
+            <ul>
+              <li><strong>Why Anaconda?</strong>
+                <ul>
+                  <li>Anaconda is a distribution of Python and R for scientific computing and data science.</li>
+                  <li>It comes pre-packaged with many popular libraries including NumPy and Pandas.</li>
+                </ul>
+              </li>
+              <li><strong>Installing Anaconda:</strong>
+                <ul>
+                  <li>Download from <a href="https://www.anaconda.com/products/distribution">anaconda.com</a> and follow
+                    installation instructions.</li>
+                </ul>
+              </li>
+              <li><strong>Creating an Environment with NumPy and Pandas:</strong>
+                <pre><code>conda create -n myenv numpy pandas</code></pre>
+              <li>Activate the environment:
+                <pre><code>conda activate myenv</code></pre>
+              </li>
+              </li>
+            </ul>
+          </small>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Thank You!</h2>
+        <p>Any Questions?</p>
+        <p>Dr. G. Saravanan</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize();
+  </script>
+</body>
+
+</html>
