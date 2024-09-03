@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/slides-extended.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+    <script type="text/javascript">
+        function pageInIframe() {
+            return (window.location !== window.parent.location);
+        }
+
+        let forgetPop = true;
+        function onPopState(event) {
+            if(forgetPop){
+                forgetPop = false;
+            } else if( pageInIframe()) {
+                parent.postMessage(event.target.location.href, "app://obsidian.md");
+            }
+        }
+        window.onpopstate = onPopState;
+        window.onmessage = event => {
+            if(event.data == "reload"){
+                window.document.location.reload();
+            }
+            forgetPop = true;
+        }
+
+        function fitElements() {
+            const itemsToFit = document.getElementsByClassName('fitText');
+            for (const item in itemsToFit) {
+                if (Object.hasOwnProperty.call(itemsToFit, item)) {
+                    const element = itemsToFit[item];
+                    fitElement(element, 1, 1000);
+                    element.classList.remove('fitText');
+                }
+            }
+        }
+
+        function fitElement(element, start, end) {
+
+            let size = (end + start) / 2;
+            element.style.fontSize = `${size}px`;
+
+            if (Math.abs(start - end) < 1) {
+                while (element.scrollHeight > element.offsetHeight) {
+                    size--;
+                    element.style.fontSize = `${size}px`;
+                }
+                return;
+            }
+
+            if (element.scrollHeight > element.offsetHeight) {
+                fitElement(element, start, size);
+            } else {
+                fitElement(element, size, end);
+            }
+        }
+
+
+        document.onreadystatechange = () => {
+            fitElements();
+            if (document.readyState === 'complete') {
+                if (pageInIframe() && window.location.href.indexOf("?export") != -1){
+                    parent.postMessage(event.target.location.href, "app://obsidian.md");
+                }
+                if (window.location.href.indexOf("print-pdf") != -1){
+                    let stateCheck = setInterval(() => {
+                        clearInterval(stateCheck);
+                        window.print();
+                    }, 250);
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- **Title:** Introduction to NumPy and Pandas
+- **Presented by:** Dr. G. Saravanan
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Numpy
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **What is NumPy?**
+
+- **Definition:**
+  - NumPy stands for Numerical Python.
+  - It is a fundamental package for scientific computing with Python.
+- **Core Features:**
+  - Provides support for arrays and matrices, along with a collection of mathematical functions to operate on these data structures.
+  - Efficient operations on large datasets.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Why Use NumPy?**
+
+- **Performance:**
+  - NumPy is implemented in C, allowing for fast and efficient computations.
+- **Convenience:**
+  - Easy-to-use syntax and powerful features like broadcasting, which simplifies many operations.
+- **Integration:**
+  - Works well with other libraries like SciPy, Pandas, and Matplotlib.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Basic Concepts**
+
+- **Arrays:**
+  - Central data structure in NumPy.
+  - Can be 1D, 2D, or N-Dimensional.
+- **Data Types:**
+  - NumPy arrays have a specific data type, like `int`, `float`, or `complex`.
+- **Operations:**
+  - Element-wise operations: addition, subtraction, multiplication, etc.
+  - Matrix operations: dot product, transpose, etc.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Creating NumPy Arrays**
+
+- **From Lists:**
+
+  ```python
+  import numpy as np
+  array1 = np.array([1, 2, 3])
+  ```
+
+- **Using Functions:**
+  - `np.zeros((3,3))` - Creates an array of zeros.
+  - `np.ones((2,2))` - Creates an array of ones.
+  - `np.arange(0, 10, 2)` - Creates an array with a range of values.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Array Indexing and Slicing**
+
+- **Indexing:**
+  - Access elements using square brackets: `array1[0]` returns the first element.
+- **Slicing:**
+  - Extract a subset of an array: `array1[0:2]` returns the first two elements.
+- **Advanced Indexing:**
+  - Boolean indexing, integer array indexing for more complex operations.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Broadcasting**
+
+- **Definition:**
+  - A method that NumPy uses to allow arithmetic operations on arrays of different shapes.
+- **Example:**
+
+  ```python
+  a = np.array([1, 2, 3])
+  b = np.array([4])
+  result = a + b  # [5, 6, 7]
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **Applications of NumPy**
+
+- **Data Analysis:**
+  - Used in libraries like Pandas for handling large datasets.
+- **Machine Learning:**
+  - Foundation for machine learning libraries like TensorFlow and PyTorch.
+- **Scientific Computing:**
+  - Numerical simulations, statistical calculations, etc.
+- **Image Processing:**
+  - Efficient manipulation of image data as arrays.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Pandas
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **What is Pandas?**
+
+- **Definition:**
+  - Pandas is an open-source Python library for data manipulation and analysis.
+- **Core Features:**
+  - Provides data structures like Series and DataFrame for handling and analyzing structured data.
+- **Integration:**
+  - Works seamlessly with other libraries like NumPy, Matplotlib, and SciPy.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Why Use Pandas?**
+
+- **Efficiency:**
+  - Optimized for fast data manipulation with large datasets.
+- **Ease of Use:**
+  - Intuitive syntax for data filtering, grouping, and aggregation.
+- **Powerful Functionality:**
+  - Handles missing data, merges/joining of datasets, and time-series functionality.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Core Data Structures**
+
+- **Series:**
+  - A one-dimensional labeled array capable of holding any data type.
+  - Similar to a column in a spreadsheet or a SQL table.
+- **DataFrame:**
+  - A two-dimensional labeled data structure with columns of potentially different types.
+  - Can be thought of as a collection of Series objects.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Creating a Pandas Series**
+
+- **From a List:**
+
+  ```python
+  import pandas as pd
+  s = pd.Series([1, 3, 5, 7])
+  ```
+
+- **From a Dictionary:**
+
+  ```python
+  data = {'a': 1, 'b': 2, 'c': 3}
+  s = pd.Series(data)
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Creating a Pandas DataFrame**
+
+- **From a Dictionary:**
+
+  ```python
+  data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}
+  df = pd.DataFrame(data)
+  ```
+
+- **From a CSV File:**
+
+  ```python
+  df = pd.read_csv('file.csv')
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **DataFrame Operations**
+
+- **Basic Operations:**
+  - `df.head()`: View the first few rows of the DataFrame.
+  - `df.describe()`: Generate descriptive statistics.
+- **Indexing and Selecting Data:**
+  - `df['column_name']`: Select a single column.
+  - `df.iloc[0]`: Select the first row.
+  - `df.loc[0, 'column_name']`: Select a specific element.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Handling Missing Data**
+
+- **Checking for Missing Data:**
+  - `df.isnull()`: Detect missing values.
+  - `df.dropna()`: Remove rows with missing values.
+- **Filling Missing Data:**
+  - `df.fillna(value)`: Replace missing values with a specified value.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Data Grouping and Aggregation**
+
+- **Grouping Data:**
+  - `df.groupby('column_name')`: Group data by a specific column.
+- **Aggregation Functions:**
+  - `df.groupby('column_name').mean()`: Calculate the mean for each group.
+  - `df.groupby('column_name').sum()`: Calculate the sum for each group.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Merging and Joining DataFrames**
+
+- **Concatenation:**
+  - `pd.concat([df1, df2])`: Concatenate two DataFrames along rows or columns.
+- **Merging:**
+  - `pd.merge(df1, df2, on='key_column')`: Merge two DataFrames on a common key.
+- **Joining:**
+  - `df1.join(df2)`: Join two DataFrames on their index.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Examples
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Statistical Operations**
+
+- **Calculating Mean and Standard Deviation:**
+
+  ```python
+  data = np.array([10, 20, 30, 40])
+  mean = np.mean(data)
+  std_dev = np.std(data)
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Solving Linear Equations**
+
+- **System of Equations:**
+  - Solving \(AX = B\) using NumPy:
+
+  ```python
+  A = np.array([[1, 2], [3, 4]])
+  B = np.array([5, 6])
+  X = np.linalg.solve(A, B)
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Image Manipulation**
+
+- **Loading and Modifying an Image:**
+
+  ```python
+  from PIL import Image
+  img = np.array(Image.open('image.jpg'))
+  flipped_img = np.flipud(img)
+  ```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Reshaping and Indexing**
+
+- **Reshaping Arrays:**
+
+  ```python
+  matrix = np.arange(1, 10).reshape(3, 3)
+  ```
+
+  - Creates a 3x3 matrix:
+
+  ```py
+  [[1, 2, 3],
+   [4, 5, 6],
+   [7, 8, 9]]
+  ```
+
+- **Indexing:**
+  - Access specific element: `matrix[1, 1]` → `5`
+  - Slice a submatrix: `matrix[:, 1]` → `[2, 5, 8]`
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Creating a DataFrame**
+
+- **From a Dictionary:**
+
+  ```python
+  import pandas as pd
+  data = {'Name': ['Alice', 'Bob', 'Charlie'],
+          'Age': [25, 30, 35],
+          'City': ['New York', 'Los Angeles', 'Chicago']}
+  df = pd.DataFrame(data)
+  ```
+
+- **Viewing DataFrame:**
+  - `df.head()` → Displays the first few rows.
+  - `df.info()` → Provides a summary of the DataFrame.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **Pandas: Indexing and Selecting Data**
+
+- **Selecting Columns:**
+
+  ```python
+  names = df['Name']
+  ```
+
+  - Selects the 'Name' column.
+- **Selecting Rows:**
+
+  ```python
+  first_row = df.iloc[0]
+  ```
+
+  - Selects the first row.
+- **Conditional Selection:**
+
+  ```python
+  adults = df[df['Age'] > 30]
+  ```
+
+  - Selects rows where 'Age' is greater than 30.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **Combining NumPy and Pandas**
+
+- **Adding a New Column:**
+
+  ```python
+  df['Age in 5 Years'] = df['Age'] + 5
+  ```
+
+- **Using NumPy Functions:**
+
+  ```python
+  df['Age Squared'] = np.square(df['Age'])
+  ```
+
+  - Applies NumPy's square function to the 'Age' column.
+- **Statistical Summary:**
+
+  ```python
+  mean_age = np.mean(df['Age'])
+  std_age = np.std(df['Age'])
+  ```
+
+  - Calculates mean and standard deviation of the 'Age' column.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **NumPy: Advanced Array Operations**
+
+- **Broadcasting Across Dimensions:**
+
+  ```python
+  A = np.array([[1, 2], [3, 4]])
+  B = np.array([10, 20])
+  result = A + B
+  ```
+
+  - **Result:** Broadcasting adds `B` to each row of `A`.
+
+  ```py
+  [[11, 22],
+   [13, 24]]
+  ```
+
+- **Advanced Indexing:**
+
+  ```python
+  A = np.array([1, 2, 3, 4, 5])
+  idx = np.array([0, 2, 4])
+  selected = A[idx]
+  ```
+
+  - **Result:** `[1, 3, 5]` - Selects elements at specific indices.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **NumPy: Linear Algebra Operations**
+
+- **Matrix Multiplication:**
+
+  ```python
+  A = np.array([[1, 2], [3, 4]])
+  B = np.array([[5, 6], [7, 8]])
+  product = np.dot(A, B)
+  ```
+
+  - **Result:** Matrix multiplication of `A` and `B`.
+
+  ```py
+  [[19, 22],
+   [43, 50]]
+  ```
+
+- **Eigenvalues and Eigenvectors:**
+
+  ```python
+  eigvals, eigvecs = np.linalg.eig(A)
+  ```
+
+  - **Result:** Compute the eigenvalues and eigenvectors of matrix `A`.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Pandas: Handling Large Datasets**
+
+- **Chunking Large Data Files:**
+
+  ```python
+  chunk_iter = pd.read_csv('large_file.csv', chunksize=10000)
+  for chunk in chunk_iter:
+      process(chunk)
+  ```
+
+  - **Use Case:** Efficiently process large CSV files in chunks to avoid memory overload.
+- **Optimizing Data Types:**
+
+  ```python
+  df['col'] = df['col'].astype('category')
+  ```
+
+  - **Use Case:** Convert columns to categorical data types to save memory and speed up processing.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Pandas: Advanced Data Merging**
+
+- **Merging on Multiple Keys:**
+
+  ```python
+  merged_df = pd.merge(df1, df2, on=['key1', 'key2'])
+  ```
+
+  - **Use Case:** Merge DataFrames on multiple keys for complex relational data.
+- **Merging with Different Join Types:**
+
+  ```python
+  outer_join_df = pd.merge(df1, df2, how='outer', on='key')
+  ```
+
+  - **Use Case:** Perform outer joins to include all rows from both DataFrames, handling missing data.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Pandas: Time Series Analysis**
+
+- **Resampling Time Series Data:**
+
+  ```python
+  df.resampled = df.resample('M').mean()
+  ```
+
+  - **Use Case:** Resample data from daily to monthly frequency, calculating the mean for each month.
+- **Rolling Window Calculations:**
+
+  ```python
+  df['rolling_mean'] = df['value'].rolling(window=7).mean()
+  ```
+
+  - **Use Case:** Calculate a 7-day rolling average for smoothing time series data.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **NumPy: Random Simulations and Monte Carlo Methods**
+
+- **Random Number Generation:**
+
+  ```python
+  random_numbers = np.random.normal(loc=0, scale=1, size=1000)
+  ```
+
+  - **Use Case:** Generate random numbers following a normal distribution for simulations.
+- **Monte Carlo Simulation:**
+
+  ```python
+  simulations = np.random.rand(10000)
+  estimate = np.mean(simulations < 0.5)
+  ```
+
+  - **Use Case:** Estimate probabilities or other statistical properties through random sampling.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+
+### **Pandas: Complex Data Transformations**
+
+- **Pivot Tables:**
+
+  ```python
+  pivot = df.pivot_table(values='sales', index='region', columns='product', aggfunc='sum')
+  ```
+
+  - **Use Case:** Summarize and reshape data with multi-dimensional aggregation.
+- **MultiIndex DataFrames:**
+
+  ```python
+  df.set_index(['Region', 'Product'], inplace=True)
+  ```
+
+  - **Use Case:** Use hierarchical indexing for advanced data analysis and slicing.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<small>
+
+### **Combining NumPy and Pandas for Advanced Analysis**
+
+- **Vectorized Operations:**
+
+  ```python
+  df['adjusted_sales'] = np.where(df['sales'] > 1000, df['sales'] * 1.1, df['sales'] * 0.9)
+  ```
+
+  - **Use Case:** Apply conditional logic across a DataFrame using NumPy for efficiency.
+- **Statistical Modeling:**
+
+  ```python
+  model = np.polyfit(df['x'], df['y'], 2)
+  df['y_pred'] = np.polyval(model, df['x'])
+  ```
+
+  - **Use Case:** Perform polynomial fitting and predictions using NumPy within a Pandas DataFrame.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Conclusion**
+
+<small>
+
+- **Recap:**
+  - NumPy is essential for numerical computing in Python.
+  - Powerful, efficient, and widely used in various fields.
+- **Next Steps:**
+  - Explore more advanced NumPy features like linear algebra, random number generation, and Fourier transforms.
+
+</small>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### **Conclusion**
+
+<small>
+
+- **Recap:**
+  - Pandas is a powerful and flexible library for data manipulation and analysis in Python.
+  - Key features include Series and DataFrame structures, efficient handling of missing data, and robust data operations like grouping, aggregation, and merging.
+- **Next Steps:**
+  - Explore more advanced Pandas functionalities such as time series analysis, pivot tables, and working with large datasets.
+
+</small>
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/mermaid/mermaid.js"></script>
+    <script src="plugin/chart/chart.min.js"></script>
+    <script src="plugin/chart/plugin.js"></script>
+    <script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+        function extend() {
+            const target = {};
+            for (let i = 0; i < arguments.length; i++) {
+                const source = arguments[i];
+                for (const key in source) {
+                    if (source.hasOwnProperty(key)) {
+                        target[key] = source[key];
+                    }
+                }
+            }
+            return target;
+        }
+
+        function isLight(color) {
+            let hex = color.replace('#', '');
+
+            // convert #fff => #ffffff
+            if (hex.length == 3) {
+                hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+            }
+
+            const c_r = parseInt(hex.substr(0, 2), 16);
+            const c_g = parseInt(hex.substr(2, 2), 16);
+            const c_b = parseInt(hex.substr(4, 2), 16);
+            const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+            return brightness > 155;
+        }
+
+        const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+
+        if (isLight(bgColor)) {
+            document.body.classList.add('has-light-background');
+        } else {
+            document.body.classList.add('has-dark-background');
+        }
+
+        // default options to init reveal.js
+        const defaultOptions = {
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'default', // none/fade/slide/convex/concave/zoom
+            plugins: [
+                RevealMarkdown,
+                RevealHighlight,
+                RevealZoom,
+                RevealNotes,
+                RevealMath.MathJax3,
+                RevealMermaid,
+                RevealChart,
+                RevealCustomControls,
+            ],
+            allottedTime: 120 * 1000,
+            mathjax3: {
+                mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+            },
+            markdown: {
+                gfm: true,
+                mangle: true,
+                pedantic: false,
+                smartLists: false,
+                smartypants: false,
+            },
+            mermaid: {
+                theme: isLight ? 'default' : 'dark',
+            },
+            customcontrols: {
+                controls: [
+                ]
+            },
+        };
+
+        if ( pageInIframe() ) {
+            defaultOptions.scrollActivationWidth = 5;
+        }
+
+        // options from URL query string
+        const queryOptions = Reveal().getQueryHash() || {};
+
+        const options = extend(defaultOptions, {"controls":true,"progress":true,"slideNumber":false,"center":true,"transition":"slide","transitionSpeed":"default","width":960,"height":700,"margin":0.04}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+</body>
+
+<!-- created with Slides Extended -->
+</html>
