@@ -6,6 +6,12 @@
   <title>Introduction to NumPy and Pandas</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/a11y-light.min.css">
+
 </head>
 
 <body>
@@ -53,7 +59,9 @@
             <li>Pandas was developed by Wes McKinney in 2008.</li>
             <li>It was created to address the need for a powerful and flexible tool for data analysis in Python.</li>
           </ul>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Pandas_mark.svg/1200px-Pandas_mark.svg.png" alt="Pandas Logo" style="width: 30%; margin-top: 20px;">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Pandas_mark.svg/1200px-Pandas_mark.svg.png"
+            alt="Pandas Logo" style="width: 30%; margin-top: 20px;">
 
         </section>
 
@@ -387,6 +395,203 @@ df = pd.DataFrame(data)</code></pre>
               </li>
               </li>
             </ul>
+          </small>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h2>Examples</h2>
+        </section>
+
+        <section>
+          <h3>Statistical Operations</h3>
+          <p><strong>Calculating Mean and Standard Deviation:</strong></p>
+          <pre><code class="python">data = np.array([10, 20, 30, 40])
+mean = np.mean(data)
+std_dev = np.std(data)</code></pre>
+        </section>
+
+        <section>
+          <h3>Solving Linear Equations</h3>
+          <p><strong>System of Equations:</strong></p>
+          <p>Solving (AX = B) using NumPy:</p>
+          <pre><code class="python">A = np.array([[1, 2], [3, 4]])
+B = np.array([5, 6])
+X = np.linalg.solve(A, B)</code></pre>
+        </section>
+
+        <section>
+          <h3>Image Manipulation</h3>
+          <p><strong>Loading and Modifying an Image:</strong></p>
+          <pre><code class="python">from PIL import Image
+img = np.array(Image.open('image.jpg'))
+flipped_img = np.flipud(img)</code></pre>
+        </section>
+
+        <section>
+          <h3>Reshaping and Indexing</h3>
+          <p><strong>Reshaping Arrays:</strong></p>
+          <pre><code class="python">matrix = np.arange(1, 10).reshape(3, 3)</code></pre>
+          <p>Creates a 3x3 matrix:</p>
+          <pre><code class="python">[[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9]]</code></pre>
+          <p><strong>Indexing:</strong></p>
+          <p>Access specific element: <code>matrix[1, 1]</code> → `5`</p>
+          <p>Slice a submatrix: <code>matrix[:, 1]</code> → `[2, 5, 8]`</p>
+        </section>
+
+        <section>
+          <h3>Creating a DataFrame</h3>
+          <p><strong>From a Dictionary:</strong></p>
+          <pre><code class="python">import pandas as pd
+data = {'Name': ['Alice', 'Bob', 'Charlie'],
+        'Age': [25, 30, 35],
+        'City': ['New York', 'Los Angeles', 'Chicago']}
+df = pd.DataFrame(data)</code></pre>
+          <p><strong>Viewing DataFrame:</strong></p>
+          <p><code>df.head()</code> → Displays the first few rows.</p>
+          <p><code>df.info()</code> → Provides a summary of the DataFrame.</p>
+        </section>
+
+        <section>
+          <small>
+            <h3>Pandas: Indexing and Selecting Data</h3>
+            <p><strong>Selecting Columns:</strong></p>
+            <pre><code class="python">names = df['Name']</code></pre>
+            <p>Selects the 'Name' column.</p>
+            <p><strong>Selecting Rows:</strong></p>
+            <pre><code class="python">first_row = df.iloc[0]</code></pre>
+            <p>Selects the first row.</p>
+            <p><strong>Conditional Selection:</strong></p>
+            <pre><code class="python">adults = df[df['Age'] > 30]</code></pre>
+            <p>Selects rows where 'Age' is greater than 30.</p>
+          </small>
+        </section>
+
+        <section>
+          <small>
+            <h3>Combining NumPy and Pandas</h3>
+            <p><strong>Adding a New Column:</strong></p>
+            <pre><code class="python">df['Age in 5 Years'] = df['Age'] + 5</code></pre>
+            <p><strong>Using NumPy Functions:</strong></p>
+            <pre><code class="python">df['Age Squared'] = np.square(df['Age'])</code></pre>
+            <p>Applies NumPy's square function to the 'Age' column.</p>
+            <p><strong>Statistical Summary:</strong></p>
+            <pre><code class="python">mean_age = np.mean(df['Age'])
+std_age = np.std(df['Age'])</code></pre>
+            <p>Calculates mean and standard deviation of the 'Age' column.</p>
+          </small>
+        </section>
+
+        <section>
+          <small>
+            <h3>NumPy: Advanced Array Operations</h3>
+            <p><strong>Broadcasting Across Dimensions:</strong></p>
+            <pre><code class="python">A = np.array([[1, 2], [3, 4]])
+B = np.array([10, 20])
+result = A + B</code></pre>
+            <p><strong>Result:</strong> Broadcasting adds <code>B</code> to each row of <code>A</code>.</p>
+            <pre><code class="python">[[11, 22],
+[13, 24]]</code></pre>
+            <p><strong>Advanced Indexing:</strong></p>
+            <pre><code class="python">A = np.array([1, 2, 3, 4, 5])
+idx = np.array([0, 2, 4])
+selected = A[idx]</code></pre>
+            <p><strong>Result:</strong> `[1, 3, 5]` - Selects elements at specific indices.</p>
+          </small>
+        </section>
+
+        <section>
+          <small>
+            <h3>NumPy: Linear Algebra Operations</h3>
+            <p><strong>Matrix Multiplication:</strong></p>
+            <pre><code class="python">A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+product = np.dot(A, B)</code></pre>
+            <p><strong>Result:</strong> Matrix multiplication of `A` and `B`.</p>
+            <pre><code class="python">[[19, 22],
+[43, 50]]</code></pre>
+            <p><strong>Eigenvalues and Eigenvectors:</strong></p>
+            <pre><code class="python">eigvals, eigvecs = np.linalg.eig(A)</code></pre>
+            <p><strong>Result:</strong> Compute the eigenvalues and eigenvectors of matrix `A`.</p>
+          </small>
+        </section>
+
+        <section>
+          <h3>Pandas: Handling Large Datasets</h3>
+          <p><strong>Chunking Large Data Files:</strong></p>
+          <pre><code class="python">chunk_iter = pd.read_csv('large_file.csv', chunksize=10000)
+for chunk in chunk_iter:
+    process(chunk)</code></pre>
+          <p><strong>Use Case:</strong> Efficiently process large CSV files in chunks to avoid memory overload.</p>
+          <p><strong>Optimizing Data Types:</strong></p>
+          <pre><code class="python">df['col'] = df['col'].astype('category')</code></pre>
+          <p><strong>Use Case:</strong> Convert columns to categorical data types to save memory and speed up
+            processing.</p>
+        </section>
+
+        <section>
+          <h3>Pandas: Advanced Data Merging</h3>
+          <p><strong>Merging on Multiple Keys:</strong></p>
+          <pre><code class="python">merged_df = pd.merge(df1, df2, on=['key1', 'key2'])</code></pre>
+          <p><strong>Use Case:</strong> Merge DataFrames on multiple keys for complex relational data.</p>
+          <p><strong>Merging with Different Join Types:</strong></p>
+          <pre><code class="python">outer_join_df = pd.merge(df1, df2, how='outer', on='key')</code></pre>
+          <p><strong>Use Case:</strong> Perform outer joins to include all rows from both DataFrames, handling missing
+            data.</p>
+        </section>
+
+        <section>
+          <h3>Pandas: Time Series Analysis</h3>
+          <p><strong>Resampling Time Series Data:</strong></p>
+          <pre><code class="python">df.resampled = df.resample('M').mean()</code></pre>
+          <p><strong>Use Case:</strong> Resample data from daily to monthly frequency, calculating the mean for each
+            month.</p>
+          <p><strong>Rolling Window Calculations:</strong></p>
+          <pre><code class="python">df['rolling_mean'] = df['value'].rolling(window=7).mean()</code></pre>
+          <p><strong>Use Case:</strong> Calculate a 7-day rolling average for smoothing time series data.</p>
+        </section>
+
+        <section>
+          <small>
+            <h3>NumPy: Random Simulations and Monte Carlo Methods</h3>
+            <p><strong>Random Number Generation:</strong></p>
+            <pre><code class="python">random_numbers = np.random.normal(loc=0, scale=1, size=1000)</code></pre>
+            <p><strong>Use Case:</strong> Generate random numbers following a normal distribution for simulations.</p>
+            <p><strong>Monte Carlo Simulation:</strong></p>
+            <pre><code class="python">simulations = np.random.rand(10000)
+estimate = np.mean(simulations < 0.5)</code></pre>
+            <p><strong>Use Case:</strong> Estimate probabilities or other statistical properties through random
+              sampling.</p>
+          </small>
+        </section>
+
+        <section>
+          <small>
+            <h3>Pandas: Complex Data Transformations</h3>
+            <p><strong>Pivot Tables:</strong></p>
+            <pre><code class="python">pivot = df.pivot_table(values='sales', index='region', columns='product', aggfunc='sum')</code></pre>
+            <p><strong>Use Case:</strong> Summarize and reshape data with multi-dimensional aggregation.</p>
+            <p><strong>MultiIndex DataFrames:</strong></p>
+            <pre><code class="python">df.set_index(['Region', 'Product'], inplace=True)</code></pre>
+            <p><strong>Use Case:</strong> Use hierarchical indexing for advanced data analysis and slicing.</p>
+          </small>
+        </section>
+
+        <section>
+          <small>
+            <h3>Combining NumPy and Pandas for Advanced Analysis</h3>
+            <p><strong>Vectorized Operations:</strong></p>
+            <pre><code class="python">df['adjusted_sales'] = np.where(df['sales'] > 1000, df['sales'] * 1.1, df['sales'] * 0.9)</code></pre>
+            <p><strong>Use Case:</strong> Apply conditional logic across a DataFrame using NumPy for efficiency.</p>
+            <p><strong>Statistical Modeling:</strong></p>
+            <pre><code class="python">model = np.polyfit(df['x'], df['y'], 2)
+df['y_pred'] = np.polyval(model, df['x'])</code></pre>
+            <p><strong>Use Case:</strong> Perform polynomial fitting and predictions using NumPy within a Pandas
+              DataFrame.</p>
           </small>
         </section>
 
