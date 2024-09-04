@@ -521,16 +521,18 @@ product = np.dot(A, B)</code></pre>
         </section>
 
         <section>
-          <h3>Pandas: Handling Large Datasets</h3>
-          <p><strong>Chunking Large Data Files:</strong></p>
-          <pre><code class="python">chunk_iter = pd.read_csv('large_file.csv', chunksize=10000)
-for chunk in chunk_iter:
-    process(chunk)</code></pre>
-          <p><strong>Use Case:</strong> Efficiently process large CSV files in chunks to avoid memory overload.</p>
-          <p><strong>Optimizing Data Types:</strong></p>
-          <pre><code class="python">df['col'] = df['col'].astype('category')</code></pre>
-          <p><strong>Use Case:</strong> Convert columns to categorical data types to save memory and speed up
-            processing.</p>
+          <small>
+            <h3>Pandas: Handling Large Datasets</h3>
+            <p><strong>Chunking Large Data Files:</strong></p>
+            <pre><code class="python">chunk_iter = pd.read_csv('large_file.csv', chunksize=10000)
+              for chunk in chunk_iter:
+              process(chunk)</code></pre>
+            <p><strong>Use Case:</strong> Efficiently process large CSV files in chunks to avoid memory overload.</p>
+            <p><strong>Optimizing Data Types:</strong></p>
+            <pre><code class="python">df['col'] = df['col'].astype('category')</code></pre>
+            <p><strong>Use Case:</strong> Convert columns to categorical data types to save memory and speed up
+              processing.</p>
+          </small>
         </section>
 
         <section>
